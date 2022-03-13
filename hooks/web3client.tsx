@@ -30,13 +30,13 @@ const providerOptions = {
 }
 
 let web3Modal: Web3Modal | null
-if (typeof window !== 'undefined') {
 
+if (typeof window !== 'undefined') {
   web3Modal = new Web3Modal({
-    network: 'mainnet', // optional
-    cacheProvider: true,
-    providerOptions, // required
-  })
+    network: 'mainnet', 
+    cacheProvider: false,
+    providerOptions, 
+  });
 }
 
 export const useWeb3 = () => {
@@ -44,6 +44,7 @@ export const useWeb3 = () => {
   const { provider, web3Provider, address, network } = state
   
   const connect = useCallback(async () => {
+    console.log(connect)
     if (web3Modal) {
       try {
         const provider = await web3Modal.connect()

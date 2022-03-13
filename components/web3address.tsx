@@ -3,7 +3,7 @@ import { useWeb3Context } from '../context'
 
 export function Web3Address() {
   const { address } = useWeb3Context()
-  console.log(address)
+  console.log(useWeb3Context())
 
   return (
     <div>
