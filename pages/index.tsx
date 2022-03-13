@@ -1,12 +1,16 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import { Web3Address, Web3Button } from '../components'
 
 const Home: NextPage = () => {
+  console.log(process.env.NEXT_PUBLIC_INFURA_ID)
   return (
-    <div className={styles.container}>
-     
+    <div>
+      <>
+        <Web3Button />
+      </>
+      <>
+        <Web3Address />
+      </>
     </div>
   )
 }
