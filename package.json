@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@biconomy/hyphen": "^0.0.21",
     "@coinbase/wallet-sdk": "^3.0.4",
     "@headlessui/react": "^1.5.0",
     "@heroicons/react": "^1.0.6",
