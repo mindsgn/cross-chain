@@ -59,19 +59,20 @@ export const useWeb3 = () => {
         try {
         let hyphen = new Hyphen( provider, {
           debug: true,            // If 'true', it prints debug logs on console window
-          environment: "test",    // It can be "test" or "prod"
+          environment: "prod",    // It can be "test" or "prod"
           onFundsTransfered: (data) => {
             // Optional Callback method which will be called when funds transfer across
             // chains will be completed
           }
         });
         
+        console.log("address")
         await hyphen.init();
 
         let preTransferStatus = await hyphen.preDepositStatus({
-          tokenAddress: "", // Token address on fromChain which needs to be transferred
-          amount: 0.1, // Amount of tokens to be transferred in smallest unit eg wei
-          fromChainId: 173, // Chain id from where tokens needs to be transferred
+          tokenAddress: "0x2791bca1f2de4661ed88a30c99a7a9449aa84174", // Token address on fromChain which needs to be transferred
+          amount: 1000000000000, // Amount of tokens to be transferred in smallest unit eg wei
+          fromChainId: 137, // Chain id from where tokens needs to be transferred
           toChainId: 43114, // Chain id where tokens are supposed to be sent
           userAddress: address // User wallet address who want's to do the transfer
         });
@@ -80,6 +81,14 @@ export const useWeb3 = () => {
           console.log("// ✅ ALL CHECKS PASSED. Proceed to do deposit transaction")
         } else if(preTransferStatus.code === RESPONSE_CODES.ALLOWANCE_NOT_GIVEN) {
           console.log("// ❌ Not enough apporval from user address on LiquidityPoolManager contract on fromChain")
+        } else if (preTransferStatus.code === RESPONSE_CODES.UNSUPPORTED_NETWORK) {
+          console.log("// ❌ Target chain id is not supported yet")
+        } else if (preTransferStatus.code === RESPONSE_CODES.NO_LIQUIDITY) {
+          console.log("// ❌ No liquidity available on target chain for given tokenn")
+        } else if (preTransferStatus.code === RESPONSE_CODES.UNSUPPORTED_TOKEN) {
+          console.log("// ❌ Requested token is not supported on fromChain yet")
+        } else {
+          console.log("// ❌ Any other unexpected error")
         }
 
         console.log(hyphen)
@@ -172,6 +181,7 @@ export const useWeb3 = () => {
     web3Provider,
     address,
     network,
+    web3Modal,
     connect,
     disconnect,
   } as Web3ProviderState
