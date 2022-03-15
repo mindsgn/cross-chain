@@ -10,7 +10,6 @@ interface Props {
 
 export const Web3ContextProvider = ({ children }: Props) => {
   const web3ProviderState = useWeb3()
-
   return (
     <Web3Context.Provider value={web3ProviderState}>
       {children}
